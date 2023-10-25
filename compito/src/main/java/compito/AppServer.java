@@ -41,11 +41,9 @@ public class AppServer {
             Double val1;
             Double val2;
 
+            
             if(inputString.contains("+")){
                 operator = "\\+";
-            }
-            else if(inputString.contains("-")){
-                operator = "-";
             }
             else if(inputString.contains("*")){
                 operator = "\\*";
@@ -53,6 +51,8 @@ public class AppServer {
             else if(inputString.contains("/")){
                 operator = "/";
             
+            }else if(inputString.contains("-")){
+                operator = "-";
             }else{
                 server.send("Espressione non valida");
                 server.closeClient();
