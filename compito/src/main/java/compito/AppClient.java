@@ -17,16 +17,21 @@ public class AppClient
         Client client = new Client();
         client.start(ip,port);
 
-        messageFromServer = client.receive();
-        System.out.println(messageFromServer);
+        while(true){
+            messageFromServer = client.receive();
+            System.out.println(messageFromServer);
 
-        
-        String userInput = inputScanner.nextLine();
-        client.send(userInput);
+            
+            String userInput = inputScanner.nextLine();
+            client.send(userInput);
 
-        messageFromServer = client.receive();
-        System.out.println(messageFromServer);
+            if(userInput.equals("BYE")){
+                break;
+            }
 
+            messageFromServer = client.receive();
+            System.out.println(messageFromServer);
+        }
 
         inputScanner.close();
         client.close();

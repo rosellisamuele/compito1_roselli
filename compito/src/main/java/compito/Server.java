@@ -28,7 +28,7 @@ public class Server {
     public void send(String message) {
 
         try {
-            output.writeBytes(message);
+            output.writeBytes(message+'\n');
         } catch (IOException e) {  
             e.printStackTrace();
         }
