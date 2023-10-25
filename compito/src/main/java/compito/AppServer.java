@@ -22,7 +22,7 @@ public class AppServer {
         Server server = new Server();
         server.accept(serverSocket);
 
-        server.send("CALCOLATRICE SERVER: Inserire l'espressione da calcolare:"+'\n');
+        server.send("CALCOLATRICE SERVER: Inserire l'espressione da calcolare: "+'\n');
         inputString = server.receive();
         System.out.println(inputString);
 
@@ -37,50 +37,49 @@ public class AppServer {
         else if(inputString.contains("-")){
             operator = "-";
         }
-
         else if(inputString.contains("*")){
             operator = "\\*";
         }
         else if(inputString.contains("/")){
             operator = "/";
         }else{
-            server.send("Espressione non valida");
+            server.send("Espressione non valida"+'\n');
             server.closeClient();
             return;
         }
 
-        val1 = Double.parseDouble(inputString.split(operator)[0]);
-        val2 = Double.parseDouble(inputString.split(operator)[1]);
 
-        System.out.println(val1);
-        System.out.println(val2);
+        try{
 
-
-        switch(operator){
-            case "\\+":
-                output = String.valueOf(val1 + val2);
-                break;
-            case "-":
-                output = String.valueOf(val1 - val2);
-                break;
-            case "\\*":
-                output = String.valueOf(val1 * val2);
-                break;
-            case "/":
-                output = String.valueOf(val1 / val2);
-                break;
-            default:
-                output = "Espressione non valida";
-        }
         
-        server.send("Risultato: "+output);
+            val1 = Double.parseDouble(inputString.split(operator)[0]);
+            val2 = Double.parseDouble(inputString.split(operator)[1]);
 
+            System.out.println(val1);
+            System.out.println(val2);
+
+
+            switch(operator){
+                case "\\+":
+                    output = String.valueOf(val1 + val2);
+                    break;
+                case "-":
+                    output = String.valueOf(val1 - val2);
+                    break;
+                case "\\*":
+                    output = String.valueOf(val1 * val2);
+                    break;
+                case "/":
+                    output = String.valueOf(val1 / val2);
+                    break;
+                default:
+                    output = "[X] Espressione non valida";
+            }
+        }catch(NumberFormatException e){
+            output = "[X] Formato dei numeri non valido.";
+        }
+
+        server.send("Risultato: "+output+'\n');
         server.closeClient();
-
-
-
-
     }
-
-
 }
